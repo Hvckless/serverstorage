@@ -1,0 +1,25 @@
+{
+  "name": "myproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gitindex.js",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node gitindex.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://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@github.com/Hvckless/serverstorage.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hvckless/serverstorage/issues"
+  },
+  "homepage": "https://github.com/Hvckless/serverstorage#readme"
+}
