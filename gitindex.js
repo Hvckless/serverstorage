@@ -61,5 +61,5 @@ var app = http.createServer(function(req, res){
 //nodetest-izynp.run.goorm.io/index.html?req=pathname&popcorn=me
 //nodetest-izynp.run.goorm.io/inlineApps/a/protected/b.js?popcorn
 //nodetest-izynp.run.goorm.io/inlineApps/a/protected/b.do?req=popcon&product=me
-//app.listen(process.env.PORT || 3000);
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
+//app.listen(3000);
