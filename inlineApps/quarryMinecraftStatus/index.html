@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<style>
+			
+		</style>
+		<script>
+			
+			window.onload = function(){
+				var textData = "";
+				var isPerposed = true;
+				
+				var req = new XMLHttpRequest();
+				req.onreadystatechange = function(){
+					if(req.status === 200 || req.status === 201){
+						
+						if(isPerposed && (req.responseText != "")){
+							document.write(req.responseText);
+							isPerposed = false;
+							/*
+							textData = req.responseText;
+							pip(textData);
+							isPerposed = true;
+							*/
+						}
+					}
+				}
+				req.open("GET", "/inlineApps/quarryMinecraftStatus/protected/js/method/test.do", true);
+				req.send(null);
+			}
+		</script>
+	</head>
+	<body>
+		<p>
+			Holy Shit
+		</p>
+	</body>
+</html>
