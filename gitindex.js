@@ -1,6 +1,11 @@
-const express = require('express');
-const app = express();
-const port = process.env.PORT || 3000;
+var http = require('http');
+var fs = require('fs');
 
-app.get('/', (req, res) => res.send("It was changedQED"));
-app.listen(port, ()=> console.log("HI ${port}"));
+var app = http.createServer(function(req, res){
+	var url = req.url;
+	res.writeHead(200);
+	res.write(req.url + "쿼리된 URL");
+	res.end();
+});
+
+app.listen(process.env.PORT || 3000);
