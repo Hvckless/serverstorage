@@ -14,7 +14,7 @@
 					if(req.status === 200 || req.status === 201){
 						
 						if(isPerposed && (req.responseText != "")){
-							document.write(req.responseText);
+							//document.write(req.responseText);
 							isPerposed = false;
 							/*
 							textData = req.responseText;
@@ -24,14 +24,25 @@
 						}
 					}
 				}
-				req.open("GET", "/inlineApps/quarryMinecraftStatus/protected/js/method/test.do", true);
+				req.open("GET", "/inlineApps/quarryMinecraftStatus/protected/js/method/newpopcorn.do", true);
 				req.send(null);
+			}
+			
+			function checkError(event){
+				if(event.key == "Enter"){
+					koil(document.getElementsByTagName('input')[0].value);
+					if()
+					
+				}
+			}
+			
+			function koil(thisString){
+				console.log(thisString);
 			}
 		</script>
 	</head>
 	<body>
-		<p>
-			Holy Shit
-		</p>
+		<p>ip:port</p>
+		<input type="text" onkeydown="checkError(event)">
 	</body>
 </html>
