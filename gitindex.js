@@ -9,7 +9,7 @@ var app = http.createServer(function(req, res){
 		url = "/index.html";
 	}
 	fs.exists("."+url.split("?")[0], function(exists){
-		res.writeHead(200, {'Content-Type':'text/html; charset=utf-8'});
+		
 		
 		if(exists){
 			//파일이 존재하는 경우
@@ -19,10 +19,12 @@ var app = http.createServer(function(req, res){
 			
 			if(isProtected){
 				//파일이 보호된 경우
+				res.writeHead(200, {'Content-Type':'text/html; charset=utf-8'});
 				res.write("Access Denined");
 				res.end();
 			}else{
 				//파일이 보호되어있지 않은 경우 파일을 반환
+				res.writeHead(200, {'Content-Type':'text/html; charset=utf-8'});
 				res.end(fs.readFileSync(__dirname+url.split("?")[0]));
 			}
 		}else{
@@ -34,22 +36,25 @@ var app = http.createServer(function(req, res){
 					fs.exists("./inlineApps/"+_ray[2]+"/protected/js/method/"+_ray[6].split(".do")[0]+".js", function(exists){
 						if(exists){
 							if(_ray[6].split(".do").length == 2){
+								res.writeHead(200, {'Content-Type':'text/html; charset=utf-8'});
 								require("./inlineApps/"+_ray[2]+"/protected/js/method/"+_ray[6].split(".do")[0]+".js").init(req, res, _ray[6].split(".do")[1]);
-								res.end();
 							}else{
+								res.writeHead(200, {'Content-Type':'text/html; charset=utf-8'});
 								require("./inlineApps/"+_ray[2]+"/protected/js/method/"+_ray[6].split(".do")[0]+".js").init(req, res, null);
-								res.end();
 							}
 						}else{
+							res.writeHead(200, {'Content-Type':'text/html; charset=utf-8'});
 							res.write("But no Functions came");
 							res.end();
 						}
 					});
 				}else{
+					res.writeHead(200, {'Content-Type':'text/html; charset=utf-8'});
 					res.write("No Content");
 					res.end();
 				}
 			}else{
+				res.writeHead(200, {'Content-Type':'text/html; charset=utf-8'});
 				res.write("No Content");
 				res.end();
 			}

@@ -1,48 +1,175 @@
 <html>
 	<head>
 		<style>
-			
+			html, body{
+				margin: 0px;
+			}
 		</style>
 		<script>
+			//player skin 받아오는 api => https://crafatar.com/ https://mc-heads.net/
 			
-			window.onload = function(){
-				var textData = "";
-				var isPerposed = true;
-				
-				var req = new XMLHttpRequest();
-				req.onreadystatechange = function(){
-					if(req.status === 200 || req.status === 201){
-						
-						if(isPerposed && (req.responseText != "")){
-							//document.write(req.responseText);
-							isPerposed = false;
-							/*
-							textData = req.responseText;
-							pip(textData);
-							isPerposed = true;
-							*/
-						}
-					}
-				}
-				req.open("GET", "/inlineApps/quarryMinecraftStatus/protected/js/method/newpopcorn.do", true);
-				req.send(null);
-			}
+			var currentJSON = {};
 			
 			function checkError(event){
 				if(event.key == "Enter"){
-					koil(document.getElementsByTagName('input')[0].value);
-					if()
 					
+					var ipAddress = document.getElementsByTagName('input')[0].value;
+					if(ipAddress.split(":").length == 2){
+						//포트가 정상적으로 지정된 경우
+						writeMsg(ipAddress);
+						methodAddress(ipAddress);
+					}else if(ipAddress.split(":").length == 1){
+						//포트가 다중 지정되어 구분이 불가능한 경우
+						ipAddress += ":25565";
+						writeMsg(ipAddress);
+						methodAddress(ipAddress);
+					}else if(ipAddress.split(":").length > 2){
+						//포트가 지정되지 않은 경우
+						
+						writeMsg("ERR");
+						
+					}
+					
+					//document.write(ipAddress);
+					ipAddress = ipAddress.split(":");
+					//document.getElementsByTagName('p')[0].textContent = ipAddress;
+					
+
+					
+					function methodAddress(thisIP){
+						popcornNumber = parseInt(thisIP.split(":")[1]);
+						if(Number.isNaN(parseInt(popcornNumber))){
+							writeMsg("포트가 숫자가 아님");
+						}else{
+							reqStatus(thisIP.split(":")[0], popcornNumber);
+						}
+					}
+				}
+				
+				function writeMsg(thisString){
+					document.getElementsByTagName('p')[0].textContent = thisString;
+				}
+				
+				function reqStatus(IP, PORT){
+					console.log("IP : " + IP + " | PORT : " + PORT);
+					
+					var textData = "";
+					var isPerposed = true;
+					
+					var _req = new XMLHttpRequest();
+					
+					_req.onreadystatechange = function(){
+						if(_req.status === 200 || _req.status === 201){
+							if(isPerposed && (_req.responseText != "")){
+								isPerposed = false;
+								//writeMsg(_req.responseText);
+								currentJSON = JSON.parse(_req.responseText);
+								console.log(currentJSON);
+								document.querySelector("#directChecker > div > div > div:nth-child(2) > div:nth-child(1) > p").textContent = "SOME SERVER";
+								document.querySelector("#directChecker > div > div > div:nth-child(2) > div:nth-child(2) > p").textContent = currentJSON.motd;
+								document.querySelector("#directChecker > div > div > div:nth-child(2) > div:nth-child(3) > h1").textContent = JSON.stringify(currentJSON.motd_json);
+								
+								document.querySelector("#directChecker > div > div > div:nth-child(3) > p:nth-child(1)").textContent = currentJSON.server.name + " | " + currentJSON.server.protocol;
+								
+								document.querySelector("#directChecker > div > div > div:nth-child(3) > p:nth-child(2)").textContent = currentJSON.players.now + "/" + currentJSON.players.max;
+								//document.querySelector("#directChecker > div > div > div:nth-child(3) > p:nth-child(2)").textContent = current;
+								document.querySelector("#directChecker > div > div > div:nth-child(1) > img").src = currentJSON.favicon;
+							}
+						}
+					}
+					_req.open("GET", "/inlineApps/quarryMinecraftStatus/protected/js/method/newpopcorn.do");
+					_req.send(null);
 				}
 			}
 			
-			function koil(thisString){
-				console.log(thisString);
-			}
+			/*
+					<p>ip:portran</p>
+		<input type="text" onkeydown="checkError(event)">
+		<img>
+		*/
 		</script>
 	</head>
 	<body>
-		<p>ip:portran</p>
-		<input type="text" onkeydown="checkError(event)">
+		<div id="wrapper">
+			<div id="contentWrapper">
+				<div id="directChecker">
+					<div class="displayer">
+						<div>
+							<div name="leftImg">
+								<img src="https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg">
+							</div>
+							<div name="rightInfo">
+								<div>
+									<p>
+										minecraft.net
+									</p>
+								</div>
+								<div>
+									<p>
+										오래된 버전의 MOTD
+									</p>
+								</div>
+								<div>
+									<h1>
+										minecraft server status
+									</h1>
+								</div>
+								<div>
+									<h1>
+										당신의 서버를 여기서 확인해보는건 어떨까요?
+									</h1>
+								</div>
+							</div>
+							<div name="ProtocolPlayers">
+								<p>
+									Bukkit 1.6
+								</p>
+								<p>
+									?/??
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="inputArea">
+					<div contenteditable="true" onclick="popmain.btn.onclick(event, this)" onkeyup="popmain.btn.onkeydown(event, this)">someip.com:25565</div>
+					<div>
+						<input type="checkbox" value="A">
+						<label>즐겨찾기에 등록</label>
+					</div>
+				</div>
+				<div id="staredChecker">
+					<div class="displayer">
+						<div>
+							
+						</div>
+						<div>
+							
+						</div>
+						<div>
+							
+						</div>
+						<div>
+							
+						</div>
+						<div>
+							
+						</div>
+						<div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</body>
+	
+	<foot>
+		<footscript>
+			<script src="./src/js/main.js"></script>
+		</footscript>
+		<footstyle>
+			<link rel="stylesheet" href="./src/css/main.css">
+		</footstyle>
+	</foot>
 </html>
