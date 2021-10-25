@@ -1,7 +1,7 @@
 var http = require('http');
 var fs = require('fs');
 var status = require('minecraft-server-status');
-//pr test
+
 var app = http.createServer(function(req, res){
 	
 	var url = req.url;
