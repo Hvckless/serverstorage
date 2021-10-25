@@ -11,6 +11,7 @@ var popmain = {
 			if(event.key == "Enter"){
 				//console.log(thisElement.innerHTML);
 				thisElement.innerText = thisElement.innerText.replaceAll("\n", "");
+                console.log("Hello PR Test");
 			}
 			
 		}
