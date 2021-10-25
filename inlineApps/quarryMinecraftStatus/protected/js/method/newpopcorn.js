@@ -8,7 +8,7 @@ module.exports.init = function(req, res, thisString){
 		
 	}
 	
-	status('www.tavi.kro.kr', 25565, response => {
+	status('mc.hypixel.net', 25565, response => {
 		//res.write("Hello World!");
 		res.write(JSON.stringify(response));
 		res.end();

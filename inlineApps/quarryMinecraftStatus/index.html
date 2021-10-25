@@ -12,8 +12,18 @@
 			
 			function checkError(event){
 				if(event.key == "Enter"){
+                    console.log("에러 체크 실행됨");
 					
-					var ipAddress = document.getElementsByTagName('input')[0].value;
+					var ipAddress;
+                    
+                    var rawIpAddressText = document.querySelector("#inputArea > div:nth-child(1)").innerText;
+                    //입력 Div의 innerText를 받아온다. raw한 입력은 강제 개행 문자열인 /n가 포함되어있으므로 다음 작업을 통해 지운다
+                    var rawIpArray = rawIpAddressText.split("/n");
+                    //위에서 받은 rawIpAddressText를 강제 개행 문자열로 스플릿한다. 맨 처음에는 입력된 주소가 오며 뒤에는 개행 문자열이 온다
+                    
+                    ipAddress = rawIpArray[0];
+                    //rawIpArray의 0번 인덱스를 ipAddress로 지정한다.
+                    
 					if(ipAddress.split(":").length == 2){
 						//포트가 정상적으로 지정된 경우
 						writeMsg(ipAddress);
@@ -37,6 +47,7 @@
 
 					
 					function methodAddress(thisIP){
+                        console.log("QQAB : " + thisIP);
 						popcornNumber = parseInt(thisIP.split(":")[1]);
 						if(Number.isNaN(parseInt(popcornNumber))){
 							writeMsg("포트가 숫자가 아님");
@@ -63,6 +74,7 @@
 							if(isPerposed && (_req.responseText != "")){
 								isPerposed = false;
 								//writeMsg(_req.responseText);
+                                console.log("JSON 데이터 : " + _req.responseText);
 								currentJSON = JSON.parse(_req.responseText);
 								console.log(currentJSON);
 								document.querySelector("#directChecker > div > div > div:nth-child(2) > div:nth-child(1) > p").textContent = "SOME SERVER";
